@@ -9,12 +9,12 @@ RUN tar -xvf kafka_2.13-3.1.0.tgz
 RUN mv kafka_2.13-3.1.0 ~/kafka
 RUN echo 'PATH="$PATH:~/kafka/bin"' >> ~/.bashrc
 RUN echo 'source /root/utils/utils.sh' >> ~/.bashrc
-RUN mkdir ~/data
-RUN mkdir ~/data/zookeeper
-RUN mkdir ~/data/kafka
-RUN sed -i 's/dataDir=\/tmp\/zookeeper/dataDir=\/root\/data\/zookeeper/' ~/kafka/config/zookeeper.properties
-RUN sed -i 's/log.dirs=\/tmp\/kafka-logs/log.dirs=\/root\/data\/kafka/' ~/kafka/config/server.properties
+RUN mkdir ~/kafka-data
+RUN mkdir ~/zookeeper-data
+RUN sed -i 's/dataDir=\/tmp\/zookeeper/dataDir=\/root\/zookeeper-data/' ~/kafka/config/zookeeper.properties
+RUN sed -i 's/log.dirs=\/tmp\/kafka-logs/log.dirs=\/root\/kafka-data/' ~/kafka/config/server.properties
 RUN sed -i 's/#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/:9092,PARENT:\/\/:29092/' ~/kafka/config/server.properties
 RUN sed -i 's/#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092/advertised.listeners=PARENT:\/\/localhost:29092,PLAINTEXT:\/\/localhost:9092/' ~/kafka/config/server.properties
 RUN sed -i 's/#listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL/listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,PARENT:PLAINTEXT/' ~/kafka/config/server.properties
-CMD /root/kafka/bin/zookeeper-server-start.sh -daemon /root/kafka/config/zookeeper.properties && /root/kafka/bin/kafka-server-start.sh /root/kafka/config/server.properties
+COPY start-kafka.sh /root/start-kafka.sh
+CMD ~/start-kafka.sh

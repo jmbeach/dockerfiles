@@ -1,2 +1,2 @@
 #docker network create --subnet 192.168.2.0/24 kafka
-docker run --name kafka -v $PWD/data:/root/data -v $PWD/utils:/root/utils --network kafka --ip 192.168.2.2 --hostname kafka0 -p 127.0.0.1:29092:29092/tcp kafka
+docker run --name kafka -d -v $PWD/data:/root/kafka-data -v $PWD/utils:/root/utils --network kafka --ip 192.168.2.2 --hostname kafka0 -p 127.0.0.1:29092:29092/tcp kafka

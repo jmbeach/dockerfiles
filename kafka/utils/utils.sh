@@ -13,3 +13,7 @@ function consumer () {
 function consumer-groups () {
   kafka-consumer-groups.sh --bootstrap-server=localhost:9092 $@
 }
+
+function setup-learning-topics () {
+  topics --topic first_topic --create --partitions 3
+}
