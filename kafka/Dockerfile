@@ -8,6 +8,7 @@ RUN wget https://dlcdn.apache.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz
 RUN tar -xvf kafka_2.13-3.1.0.tgz
 RUN mv kafka_2.13-3.1.0 ~/kafka
 RUN echo 'PATH="$PATH:~/kafka/bin"' >> ~/.bashrc
+RUN echo 'source /root/utils/utils.sh' >> ~/.bashrc
 RUN mkdir ~/data
 RUN mkdir ~/data/zookeeper
 RUN mkdir ~/data/kafka
