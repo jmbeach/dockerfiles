@@ -13,8 +13,8 @@ RUN mkdir ~/kafka-data
 RUN mkdir ~/zookeeper-data
 RUN sed -i 's/dataDir=\/tmp\/zookeeper/dataDir=\/root\/zookeeper-data/' ~/kafka/config/zookeeper.properties
 RUN sed -i 's/log.dirs=\/tmp\/kafka-logs/log.dirs=\/root\/kafka-data/' ~/kafka/config/server.properties
-RUN sed -i 's/#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/:9092,PARENT:\/\/:29092/' ~/kafka/config/server.properties
-RUN sed -i 's/#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092/advertised.listeners=PARENT:\/\/localhost:29092,PLAINTEXT:\/\/localhost:9092/' ~/kafka/config/server.properties
-RUN sed -i 's/#listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL/listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,PARENT:PLAINTEXT/' ~/kafka/config/server.properties
+RUN sed -i 's/#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/:9092,PARENT:\/\/:29092,DOCKER:\/\/:39092/' ~/kafka/config/server.properties
+RUN sed -i 's/#advertised.listeners=PLAINTEXT:\/\/your.host.name:9092/advertised.listeners=DOCKER:\/\/kafka0:39092,PARENT:\/\/localhost:29092,PLAINTEXT:\/\/localhost:9092/' ~/kafka/config/server.properties
+RUN sed -i 's/#listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL/listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,PARENT:PLAINTEXT,DOCKER:PLAINTEXT/' ~/kafka/config/server.properties
 COPY start-kafka.sh /root/start-kafka.sh
 CMD ~/start-kafka.sh
