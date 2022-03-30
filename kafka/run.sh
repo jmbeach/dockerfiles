@@ -17,3 +17,15 @@ docker run --name kowl -d \
   --hostname kowl \
   -e KAFKA_BROKERS=kafka0:39092 \
   quay.io/cloudhut/kowl:master
+
+docker run --name kowl-dev -d \
+  -p 8081:8080 \
+  --network kafka \
+  --ip 192.168.2.4 \
+  --hostname kowl-dev \
+  -e KAFKA_BROKERS=pkc-epwny.eastus.azure.confluent.cloud:9092 \
+  -e KAFKA_TLS_ENABLED=true \
+  -e KAFKA_SASL_ENABLED=true \
+  -e KAFKA_SASL_USERNAME=4QJKO65MMTFVVXSJ \
+  -e KAFKA_SASL_PASSWORD=283HWRePvgLNV8puetrpYDxWb6hbNuO0/WItBYK5YroNNzgMqoqIsX+KBH2wl8Ka \
+  quay.io/cloudhut/kowl:master
